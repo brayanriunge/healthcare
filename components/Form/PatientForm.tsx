@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import CustomFormField from "../CustomForm/CustomFormFeild";
+import CustomFormField from "../CustomForm/CustomFormField";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -52,7 +52,7 @@ export default function PatientForm() {
           fieldType={FormFieldType.INPUT}
           name="name"
           label="Full Name"
-          placeHolder="John Doe"
+          placeholder="John Doe"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
         />
