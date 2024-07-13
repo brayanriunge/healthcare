@@ -56,6 +56,24 @@ export default function PatientForm() {
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
         />
+        {/**email */}
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.INPUT}
+          name="email"
+          label="Email"
+          placeholder="johndoe@gmail.com"
+          iconSrc="/assets/icons/email.svg"
+          iconAlt="email"
+        />
+        {/**Phone number */}
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.PHONE_INPUT}
+          name="phone"
+          label="Phone Number"
+          placeholder="0712345672"
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
