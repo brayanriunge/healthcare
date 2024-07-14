@@ -3,16 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import CustomFormField from "../CustomForm/CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import { UserFormValidation } from "@/lib/UserValidation";
-import { Router } from "lucide-react";
-import { register } from "module";
 import { useRouter } from "next/navigation";
+import { createUser } from "@/lib/actions/patient.actions";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -45,9 +42,13 @@ export default function PatientForm() {
   }: z.infer<typeof UserFormValidation>) {
     setIsLoading(true);
     try {
-      // const userData = { name, email, phone };
-      // const user = await createUser(userData);
-      // if (user) router.push(`/patients/${user.$id}/register`);
+      const userData = { name, email, phone };
+      const user = await createUser(userData);
+      console.log(userData);
+      console.log(user);
+      if (user) {
+        router.push(`/patients/${user.$id}/register`);
+      }
     } catch (error) {
       console.log(error);
     }
