@@ -9,9 +9,9 @@ export const createUser = async (
     const newUser = await users.create(
       ID.unique(),
       user.email,
-      user.name,
+      user.phone,
       undefined,
-      user.phone
+      user.name
     );
     console.log(newUser);
     return newUser;
