@@ -1,11 +1,5 @@
 import * as sdk from "node-appwrite";
-if (
-  !process.env.NEXT_PUBLIC_PROJECT_ID ||
-  !process.env.NEXT_PUBLIC_API_KEY ||
-  !process.env.NEXT_PUBLIC_ENDPOINT
-) {
-  throw new Error("Missing Appwrite environment variables.");
-}
+
 export const {
   NEXT_PUBLIC_PROJECT_ID,
   NEXT_PUBLIC_API_KEY,
@@ -14,15 +8,31 @@ export const {
   NEXT_PUBLIC_DOCTOR_COLLECTION_ID,
   NEXT_PUBLIC_APPOINTMENT_COLLECTION_ID,
   NEXT_PUBLIC_BUCKET_ID: BUCKET_ID,
-  NEXT_PUBLIC_ENDPOINT: ENDPOINT,
+  NEXT_PUBLIC_ENDPOINT,
 } = process.env;
 
-const client = new sdk.Client();
+// if (!NEXT_PUBLIC_PROJECT_ID || !NEXT_PUBLIC_API_KEY || !ENDPOINT) {
+//   throw new Error("Missing Appwrite environment variables.");
+// }
 
-client
-  .setEndpoint(ENDPOINT!)
-  .setProject(NEXT_PUBLIC_PROJECT_ID!)
-  .setKey(NEXT_PUBLIC_API_KEY!);
+if (
+  !process.env.NEXT_PUBLIC_PROJECT_ID ||
+  !process.env.NEXT_PUBLIC_API_KEY ||
+  !process.env.NEXT_PUBLIC_ENDPOINT
+) {
+  throw new Error("Missing Appwrite environment variables.");
+}
+
+console.log("Environment Variables:", {
+  NEXT_PUBLIC_PROJECT_ID,
+  NEXT_PUBLIC_API_KEY,
+  NEXT_PUBLIC_ENDPOINT,
+});
+
+const client = new sdk.Client()
+  .setEndpoint(process.env.NEXT_PUBLIC_ENDPOINT!)
+  .setProject(process.env.NEXT_PUBLIC_PROJECT_ID!)
+  .setKey(process.env.NEXT_PUBLIC_API_KEY!);
 
 export const databases = new sdk.Databases(client);
 export const storage = new sdk.Storage(client);

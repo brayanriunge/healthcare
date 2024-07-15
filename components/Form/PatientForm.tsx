@@ -37,8 +37,8 @@ export default function PatientForm() {
   // 2. Define a submit handler.
   async function onSubmit({
     name,
-    phone,
     email,
+    phone,
   }: z.infer<typeof UserFormValidation>) {
     setIsLoading(true);
     try {
