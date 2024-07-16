@@ -10,18 +10,9 @@ import { useState } from "react";
 import { UserFormValidation } from "@/lib/UserValidation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
+import { FormFieldType } from "./PatientForm";
 
-export enum FormFieldType {
-  INPUT = "input",
-  CHECKBOX = "checkbox",
-  TEXTAREA = "textarea",
-  DATE_PICKER = "datePicker",
-  PHONE_INPUT = "phoneInput",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
-
-export default function RegisterForm() {
+export default function RegisterForm({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -58,12 +49,19 @@ export default function RegisterForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 flex-1 "
+        className="space-y-12 flex-1 "
       >
-        <div className="mb-12 space-y-4">
-          <h1 className="header">Hi there</h1>
-          <p className="text-dark-700">Schedule your first appointment</p>
+        <div className=" space-y-4">
+          <h1 className="header">welcome</h1>
+          <p className="text-dark-700">Let us know more about yourself</p>
         </div>
+
+        <div className=" space-y-6">
+          <div className="space-y-1 mb-9">
+            <h2 className="sub-head">Personal Information</h2>
+          </div>
+        </div>
+
         <CustomFormField
           control={form.control}
           fieldType={FormFieldType.INPUT}
@@ -74,23 +72,7 @@ export default function RegisterForm() {
           iconAlt="user"
         />
         {/**email */}
-        <CustomFormField
-          control={form.control}
-          fieldType={FormFieldType.INPUT}
-          name="email"
-          label="Email"
-          placeholder="johndoe@gmail.com"
-          iconSrc="/assets/icons/email.svg"
-          iconAlt="email"
-        />
-        {/**Phone number */}
-        <CustomFormField
-          control={form.control}
-          fieldType={FormFieldType.PHONE_INPUT}
-          name="phone"
-          label="Phone Number"
-          placeholder="0712345672"
-        />
+
         <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
       </form>
     </Form>
