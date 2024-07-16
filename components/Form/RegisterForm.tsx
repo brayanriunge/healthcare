@@ -129,7 +129,22 @@ export default function RegisterForm({ user }: { user: User }) {
           />
         </div>
 
-        <div className="flex flex-col gap-6 xl:flex-row"></div>
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="address"
+            label="Address"
+            placeholder="Nyeri"
+          />
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="occupation"
+            label="Occupation"
+            placeholder="Software Engineer"
+          />
+        </div>
 
         <div className="flex flex-col gap-6 xl:flex-row"></div>
 
