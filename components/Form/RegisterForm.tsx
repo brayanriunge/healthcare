@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form } from "@/components/ui/form";
+import { Form, FormControl } from "@/components/ui/form";
 import CustomFormField from "../CustomForm/CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
@@ -11,6 +11,9 @@ import { UserFormValidation } from "@/lib/UserValidation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { GenderOptions } from "@/constants";
+import { Label } from "../ui/label";
 
 export default function RegisterForm({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +74,72 @@ export default function RegisterForm({ user }: { user: User }) {
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
         />
-        {/**email */}
+
+        <div className="flex flex-col xl:flex-row gap-6">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="email"
+            label="Email"
+            placeholder="johndoe@gmail.com"
+            iconSrc="/assets/icons/email.svg"
+            iconAlt="email"
+          />
+          {/**Phone number */}
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.PHONE_INPUT}
+            name="phone"
+            label="Phone Number"
+            placeholder="0712345672"
+          />
+        </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.DATE_PICKER}
+            name="birthDate"
+            label="Date of Birth"
+          />
+          {/**Phone number */}
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.SKELETON}
+            name="gender"
+            label="Gender"
+            renderSkeleton={(field) => (
+              <FormControl>
+                <RadioGroup
+                  className="flex h-11 gap-6 xl:justify-between"
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  {GenderOptions.map((option) => (
+                    <div key={option} className="radio-group">
+                      <RadioGroupItem value={option} id={option} />
+                      <Label className="cursor-point" htmlFor={option}>
+                        {option}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row"></div>
+
+        <div className="flex flex-col gap-6 xl:flex-row"></div>
+
+        <div className="flex flex-col gap-6 xl:flex-row"></div>
+
+        <div className="flex flex-col gap-6 xl:flex-row"></div>
+
+        <div className="flex flex-col gap-6 xl:flex-row"></div>
+
+        <div className="flex flex-col gap-6 xl:flex-row"></div>
 
         <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
       </form>
