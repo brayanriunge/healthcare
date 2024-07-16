@@ -146,7 +146,37 @@ export default function RegisterForm({ user }: { user: User }) {
           />
         </div>
 
-        <div className="flex flex-col gap-6 xl:flex-row"></div>
+        <div className="flex flex-col gap-6 xl:flex-row">
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="emergencyContactName"
+            label="Emergency contact name"
+            placeholder="Guardian's name"
+          />
+          {/**Phone number */}
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.PHONE_INPUT}
+            name="emergencyContactNumber"
+            label="Emergency contact number"
+            placeholder="0712345672"
+          />
+        </div>
+
+        <div className=" space-y-6">
+          <div className="space-y-1 mb-9">
+            <h2 className="sub-head">Medical Information</h2>
+          </div>
+        </div>
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.SELECT}
+          name="primaryPhysician"
+          label="Primary Physician"
+          placeholder="Select a physician"
+        />
 
         <div className="flex flex-col gap-6 xl:flex-row"></div>
 
