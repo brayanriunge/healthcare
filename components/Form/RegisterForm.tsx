@@ -16,6 +16,7 @@ import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
+import FileUploader from "../ui/FileUploader";
 
 export default function RegisterForm({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -279,7 +280,11 @@ export default function RegisterForm({ user }: { user: User }) {
           fieldType={FormFieldType.SKELETON}
           name="identificationDocument"
           label="Scanned copy of identification document"
-          renderSkeleton={(field) => <FormControl>File Upload</FormControl>}
+          renderSkeleton={(field) => (
+            <FormControl>
+              <FileUploader files={field.value} onChange={field.onChange} />
+            </FormControl>
+          )}
         />
 
         <div className="flex flex-col gap-6 xl:flex-row">hey add sth</div>
