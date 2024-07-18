@@ -305,13 +305,6 @@ export default function RegisterForm({ user }: { user: User }) {
           label="I consent to privacy policy"
         />
 
-        <div className="flex flex-col gap-6 xl:flex-row">hey add sth</div>
-
-        <div className="flex flex-col gap-6 xl:flex-row"></div>
-
-        <div className="flex flex-col gap-6 xl:flex-row"></div>
-        <div className="flex flex-col gap-6 xl:flex-row"></div>
-
         <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
       </form>
     </Form>
