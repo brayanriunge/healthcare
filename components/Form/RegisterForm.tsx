@@ -12,7 +12,7 @@ import {
   UserFormValidation,
 } from "@/lib/UserValidation";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patient.actions";
+import { createUser, registerPatient } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import {
@@ -66,6 +66,7 @@ export default function RegisterForm({ user }: { user: User }) {
         identificationDocument: formData,
       };
 
+      //@ts-ignore
       const patient = await registerPatient(patientData);
 
       if (patient) router.push(`/patients/${user.$id}/new-appointment`);

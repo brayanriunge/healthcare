@@ -23,12 +23,6 @@ if (
   throw new Error("Missing Appwrite environment variables.");
 }
 
-console.log("Environment Variables:", {
-  NEXT_PUBLIC_PROJECT_ID,
-  NEXT_PUBLIC_API_KEY,
-  NEXT_PUBLIC_ENDPOINT,
-});
-
 const client = new sdk.Client()
   .setEndpoint(process.env.NEXT_PUBLIC_ENDPOINT!)
   .setProject(process.env.NEXT_PUBLIC_PROJECT_ID!)
