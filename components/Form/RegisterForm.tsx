@@ -269,14 +269,6 @@ export default function RegisterForm({ user }: { user: User }) {
 
         <CustomFormField
           control={form.control}
-          fieldType={FormFieldType.INPUT}
-          name="identificationNumber"
-          label="Identification Number"
-          placeholder="123456789"
-        />
-
-        <CustomFormField
-          control={form.control}
           fieldType={FormFieldType.SKELETON}
           name="identificationDocument"
           label="Scanned copy of identification document"
@@ -285,6 +277,32 @@ export default function RegisterForm({ user }: { user: User }) {
               <FileUploader files={field.value} onChange={field.onChange} />
             </FormControl>
           )}
+        />
+
+        <div className=" space-y-6">
+          <div className="space-y-1 mb-9">
+            <h2 className="sub-head">Consent and Privacy</h2>
+          </div>
+        </div>
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.CHECKBOX}
+          name="treatmentConsent"
+          label="I consent to treatment"
+        />
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.CHECKBOX}
+          name="disclosureConsent"
+          label="I consent to disclosure of information"
+        />
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.CHECKBOX}
+          name="privacyConsent"
+          label="I consent to privacy policy"
         />
 
         <div className="flex flex-col gap-6 xl:flex-row">hey add sth</div>
