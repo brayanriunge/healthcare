@@ -266,6 +266,22 @@ export default function RegisterForm({ user }: { user: User }) {
           ))}
         </CustomFormField>
 
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.INPUT}
+          name="identificationNumber"
+          label="Identification Number"
+          placeholder="123456789"
+        />
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.SKELETON}
+          name="identificationDocument"
+          label="Scanned copy of identification document"
+          renderSkeleton={(field) => <FormControl>File Upload</FormControl>}
+        />
+
         <div className="flex flex-col gap-6 xl:flex-row">hey add sth</div>
 
         <div className="flex flex-col gap-6 xl:flex-row"></div>
