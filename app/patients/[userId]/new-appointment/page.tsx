@@ -21,7 +21,11 @@ export default async function NewAppointment({
             className="h-10 mb-12 w-fit"
           />
 
-          <AppointmentForm type="created" userId={userId} />
+          <AppointmentForm
+            type="create"
+            userId={userId}
+            patientId={patient.$id}
+          />
 
           <p className="justify-items-end text-dark-600 xl:text-left">
             © 2024 CarePulse
