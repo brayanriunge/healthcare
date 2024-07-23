@@ -1,8 +1,14 @@
+import AppointmentForm from "@/components/Form/AppointmentForm";
 import PatientForm from "@/components/Form/PatientForm";
+import { getPatient } from "@/lib/actions/patient.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function NewAppointment() {
+export default async function NewAppointment({
+  params: { userId },
+}: SearchParamProps) {
+  const patient = await getPatient(userId);
+
   return (
     <div className="h-screen flex max-h-screen">
       <div className=" container my-auto remove-scrollbar">
@@ -14,6 +20,8 @@ export default function NewAppointment() {
             alt="patient"
             className="h-10 mb-12 w-fit"
           />
+
+          <AppointmentForm type="created" userId={userId} />
 
           <p className="justify-items-end text-dark-600 xl:text-left">
             © 2024 CarePulse
