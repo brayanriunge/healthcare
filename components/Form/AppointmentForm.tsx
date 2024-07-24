@@ -9,6 +9,7 @@ import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import {
   CreateAppointmentSchema,
+  getAppointmentSchema,
   UserFormValidation,
 } from "@/lib/UserValidation";
 import { useRouter } from "next/navigation";
@@ -32,9 +33,10 @@ export default function AppointmentForm({
 }: appointmentProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const AppointmentFormValidation = getAppointmentSchema(type);
 
-  const form = useForm<z.infer<typeof CreateAppointmentSchema>>({
-    resolver: zodResolver(CreateAppointmentSchema),
+  const form = useForm<z.infer<typeof AppointmentFormValidation>>({
+    resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
       primaryPhysician: "",
       schedule: new Date(),
@@ -45,7 +47,7 @@ export default function AppointmentForm({
   });
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof CreateAppointmentSchema>) {
+  async function onSubmit(values: z.infer<typeof AppointmentFormValidation>) {
     setIsLoading(true);
 
     let status;
@@ -68,11 +70,18 @@ export default function AppointmentForm({
           patient: patientId,
           primaryPhysician: values.primaryPhysician,
           schedule: new Date(values.schedule),
-          reason: values.reason,
+          reason: values.reason!,
           note: values.note,
           status: status as Status,
         };
         const appointment = await createAppointment(appointmentData);
+
+        if (appointment) {
+          form.reset();
+          router.push(
+            `/patients/${userId}/new-appointment/success?appointmentId=${appointment.id}`
+          );
+        }
       }
     } catch (error) {
       console.log(error);
