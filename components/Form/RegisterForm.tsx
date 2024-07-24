@@ -328,7 +328,7 @@ export default function RegisterForm({ user }: { user: User }) {
           name="privacyConsent"
           label="I consent to privacy policy"
         />
-        <div>hello</div>
+
         <SubmitButton isLoading={isLoading}> Get Started</SubmitButton>
       </form>
     </Form>

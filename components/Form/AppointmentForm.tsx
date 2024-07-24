@@ -7,13 +7,17 @@ import { Form } from "@/components/ui/form";
 import CustomFormField from "../CustomForm/CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
-import { UserFormValidation } from "@/lib/UserValidation";
+import {
+  CreateAppointmentSchema,
+  UserFormValidation,
+} from "@/lib/UserValidation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
 import { Doctors } from "@/constants";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
+import { createAppointment } from "@/lib/actions/appointment.actions";
 
 type appointmentProps = {
   userId: string;
@@ -29,29 +33,46 @@ export default function AppointmentForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof UserFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
+  const form = useForm<z.infer<typeof CreateAppointmentSchema>>({
+    resolver: zodResolver(CreateAppointmentSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
+      primaryPhysician: "",
+      schedule: new Date(),
+      reason: "",
+      note: "",
+      cancellationReason: "",
     },
   });
 
   // 2. Define a submit handler.
-  async function onSubmit({
-    name,
-    email,
-    phone,
-  }: z.infer<typeof UserFormValidation>) {
+  async function onSubmit(values: z.infer<typeof CreateAppointmentSchema>) {
     setIsLoading(true);
+
+    let status;
+    switch (type) {
+      case "schedule":
+        status = "scheduled";
+        break;
+      case "cancel":
+        status = "cancelled";
+        break;
+      default:
+        status = "pending";
+        break;
+    }
+
     try {
-      const userData = { name, email, phone };
-      const user = await createUser(userData);
-      console.log(userData);
-      console.log(user);
-      if (user) {
-        router.push(`/patients/${user.$id}/register`);
+      if (type === "create" && patientId) {
+        const appointmentData = {
+          userId,
+          patient: patientId,
+          primaryPhysician: values.primaryPhysician,
+          schedule: new Date(values.schedule),
+          reason: values.reason,
+          note: values.note,
+          status: status as Status,
+        };
+        const appointment = await createAppointment(appointmentData);
       }
     } catch (error) {
       console.log(error);
@@ -132,7 +153,7 @@ export default function AppointmentForm({
               <CustomFormField
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
-                name="notes"
+                name="note"
                 label="Notes"
                 placeholder="Enter notes"
               />
@@ -154,7 +175,7 @@ export default function AppointmentForm({
           isLoading={isLoading}
           className={`${
             type === "cancel" ? "shad-danger-btn" : "shad-primary-btn"
-          }w-full`}
+          } w-full`}
         >
           {buttonLabel}
         </SubmitButton>

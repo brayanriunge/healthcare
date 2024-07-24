@@ -11,7 +11,7 @@ export default async function NewAppointment({
 
   return (
     <div className="h-screen flex max-h-screen">
-      <div className=" container my-auto remove-scrollbar">
+      <div className=" container remove-scrollbar">
         <div className="sub-container max-w-[860px] flex-1 justify-between">
           <Image
             src="/assets/icons/logo-full.svg"
@@ -27,9 +27,7 @@ export default async function NewAppointment({
             patientId={patient.$id}
           />
 
-          <p className="justify-items-end text-dark-600 xl:text-left">
-            © 2024 CarePulse
-          </p>
+          <p className="copyright mt-10">© 2024 CarePulse</p>
         </div>
       </div>
       <Image
