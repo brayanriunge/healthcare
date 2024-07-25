@@ -2,6 +2,7 @@
 import { ID, Query } from "node-appwrite";
 import { parseStringify } from "../utils";
 import { databases } from "../appwrite.config";
+import { Appointment } from "@/types/appwrite.types";
 
 export const createAppointment = async (
   appointment: CreateAppointmentParams
@@ -41,10 +42,32 @@ export const getRecentAppointmentList = async () => {
     );
 
     const initialCounts = {
-      scheduledCounts: 0,
-      pendingCounts: 0,
-      cancelledCounts: 0,
+      scheduledCount: 0,
+      pendingCount: 0,
+      cancelledCount: 0,
     };
+
+    const counts = (appointments.documents as Appointment[]).reduce(
+      (acc, appointment) => {
+        if (appointment.status === "scheduled") {
+          acc.scheduledCount += 1;
+        } else if (appointment.status === "pending") {
+          acc.pendingCount += 1;
+        } else if (appointment.status === "cancelled") {
+          acc.cancelledCount += 1;
+        }
+        return acc;
+      },
+      initialCounts
+    );
+
+    const data = {
+      totalCount: appointments.total,
+      ...counts,
+      documents: appointments.documents,
+    };
+    console.log(counts);
+    return parseStringify(data);
   } catch (error) {
     console.log(error);
   }
