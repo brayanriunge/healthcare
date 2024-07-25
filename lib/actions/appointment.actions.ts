@@ -1,5 +1,5 @@
 "use server";
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { parseStringify } from "../utils";
 import { databases } from "../appwrite.config";
 
@@ -27,6 +27,24 @@ export const getAppointment = async (appointmentId: string) => {
       appointmentId
     );
     return parseStringify(appointment);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getRecentAppointmentList = async () => {
+  try {
+    const appointments = await databases.listDocuments(
+      process.env.DATABASE_ID!,
+      process.env.APPOINTMENT_COLLECTION_ID!,
+      [Query.orderDesc("$createdAt")]
+    );
+
+    const initialCounts = {
+      scheduledCounts: 0,
+      pendingCounts: 0,
+      cancelledCounts: 0,
+    };
   } catch (error) {
     console.log(error);
   }

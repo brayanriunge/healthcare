@@ -26,7 +26,7 @@ export default function Admin() {
         </section>
         <section className="admin-stat">
           <StatCard
-            type="appointment"
+            type="appointments"
             count={5}
             label="Scheduled appointments"
             icon="/assets/icons/appointments.svg"
