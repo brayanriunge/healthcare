@@ -1,9 +1,26 @@
+import { DataTable } from "@/components/table/DataTable";
 import StatCard from "@/components/StatCard";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 import Image from "next/image";
 import Link from "next/link";
+import { columns, Payment } from "@/components/table/Columns";
+
+async function getData(): Promise<Payment[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    // ...
+  ];
+}
 
 export default async function Admin() {
+  const data = await getData();
+
   const appointment = await getRecentAppointmentList();
 
   return (
@@ -47,6 +64,8 @@ export default async function Admin() {
             icon="/assets/icons/cancelled.svg"
           />
         </section>
+        <DataTable columns={columns} data={appointment.documents} />
+        <DataTable columns={columns} data={data} />
       </main>
     </div>
   );
