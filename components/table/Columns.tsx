@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import StatusBadge from "../StatusBadge";
+import { formatDateTime } from "@/lib/utils";
+import { Doctors } from "@/constants";
+import Image from "next/image";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -44,20 +47,34 @@ export const columns: ColumnDef<Payment>[] = [
     ),
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "schedule",
+    header: "Appointment",
+    cell: ({ row }) => (
+      <div className="text-14-regular min-w-[100px]">
+        {formatDateTime(row.original.schedule).dateTime}
+      </div>
+    ),
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "primaryPhysician",
+    header: () => "Doctor",
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
+      const doctor = Doctors.find(
+        (doc) => doc.name === row.original.primaryPhyician
+      );
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return (
+        <div className=" flex items-center gap-3">
+          <Image
+            src={doctor?.image}
+            alt={doctor?.name}
+            width={100}
+            height={100}
+            className="size-8"
+          />
+          <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+        </div>
+      );
     },
   },
   {
