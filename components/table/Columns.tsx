@@ -2,14 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { MoreHorizontal } from "lucide-react";
 import StatusBadge from "../StatusBadge";
 import { formatDateTime } from "@/lib/utils";
@@ -19,12 +12,6 @@ import AppointmentModal from "../AppointmentModal";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-};
 
 export const columns: ColumnDef<Payment>[] = [
   {
@@ -81,12 +68,12 @@ export const columns: ColumnDef<Payment>[] = [
   {
     id: "actions",
     header: () => <div className="pl-4">Actions</div>,
-    cell: ({ row }) => {
+    cell: ({ row: { original: data } }) => {
       return (
         <div className="flex gap-1">
           <AppointmentModal
             type="schedule"
-            patientId={databases.patient.$id}
+            patientId={data.patient.$id}
             userId={data.userId}
             appointmentId={data}
             // title="Schedule Appointment"
@@ -94,7 +81,7 @@ export const columns: ColumnDef<Payment>[] = [
           />
           <AppointmentModal
             type="cancel"
-            patientId={databases.patient.$id}
+            patientId={data.patient.$id}
             userId={data.userId}
             appointmentId={data}
             // title="Cancel Appointment"
