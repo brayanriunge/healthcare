@@ -18,7 +18,10 @@ import { FormFieldType } from "./PatientForm";
 import { Doctors } from "@/constants";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
-import { createAppointment } from "@/lib/actions/appointment.actions";
+import {
+  createAppointment,
+  updateAppointment,
+} from "@/lib/actions/appointment.actions";
 import { Appointment } from "@/types/appwrite.types";
 
 type appointmentProps = {
@@ -99,6 +102,7 @@ export default function AppointmentForm({
           type,
           appointmentId: appointment?.$id,
         };
+        const updatedAppointment = await updateAppointment(appointmentToUpdate);
       }
     } catch (error) {
       console.log(error);
