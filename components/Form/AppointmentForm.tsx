@@ -100,9 +100,14 @@ export default function AppointmentForm({
             cancellationReason: values?.cancellationReason,
           },
           type,
-          appointmentId: appointment?.$id,
+          appointmentId: appointment?.$id!,
         };
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
+
+        if (updatedAppointment) {
+          setOpen && setOpen(false);
+          form.reset();
+        }
       }
     } catch (error) {
       console.log(error);
