@@ -31,7 +31,7 @@ export default async function NewAppointment({
         </div>
       </div>
       <Image
-        src="/assets/images/a    ppointment-img.png"
+        src="/assets/images/appointment-img.png"
         height={1000}
         width={1000}
         alt="appointment"

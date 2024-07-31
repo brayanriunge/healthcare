@@ -38,10 +38,10 @@ export const getRecentAppointmentList = async () => {
   try {
     const appointments = await databases.listDocuments(
       process.env.NEXT_PUBLIC_DATABASE_ID!,
-      process.env.NEXT_PUBLIC_APPOINTMENT_COLLECTION_ID!,
-      [Query.orderDesc("$createdAt")]
+      process.env.NEXT_PUBLIC_APPOINTMENT_COLLECTION_ID!
+      // [Query.orderDesc("$createdAt")]
     );
-
+    console.log("Raw appointments data:", appointments);
     const initialCounts = {
       scheduledCount: 0,
       pendingCount: 0,
@@ -67,7 +67,7 @@ export const getRecentAppointmentList = async () => {
       ...counts,
       documents: appointments.documents,
     };
-    console.log(counts);
+    console.log("appointments available:", data);
     return parseStringify(data);
   } catch (error) {
     console.log(error);

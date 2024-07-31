@@ -3,7 +3,7 @@ import StatCard from "@/components/StatCard";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 import Image from "next/image";
 import Link from "next/link";
-import { columns, Payment } from "@/components/table/Columns";
+import { columns } from "@/components/table/Columns";
 
 export default async function Admin() {
   const appointment = await getRecentAppointmentList();
