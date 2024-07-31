@@ -10,8 +10,6 @@ import { Doctors } from "@/constants";
 import Image from "next/image";
 import AppointmentModal from "../AppointmentModal";
 
-
-
 export const columns: ColumnDef<Payment>[] = [
   {
     header: "ID",
@@ -74,7 +72,7 @@ export const columns: ColumnDef<Payment>[] = [
             type="schedule"
             patientId={data.patient.$id}
             userId={data.userId}
-            appointmentId={data}
+            appointment={data}
             // title="Schedule Appointment"
             // description="Please confirm the following details to scheduled "
           />
@@ -82,7 +80,7 @@ export const columns: ColumnDef<Payment>[] = [
             type="cancel"
             patientId={data.patient.$id}
             userId={data.userId}
-            appointmentId={data}
+            appointment={data}
             // title="Cancel Appointment"
             // description="Are you sure you want to cancel this appointment? "
           />
