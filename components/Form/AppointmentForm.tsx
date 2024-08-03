@@ -195,7 +195,7 @@ export default function AppointmentForm({
                 placeholder="Enter notes"
               />
             </div>
-            <p className="text-justify"> hey there</p>
+           
           </>
         )}
 
