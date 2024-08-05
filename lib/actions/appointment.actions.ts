@@ -1,6 +1,6 @@
 "use server";
 import { ID, Query } from "node-appwrite";
-import { parseStringify } from "../utils";
+import { formatDateTime, parseStringify } from "../utils";
 import { databases, messaging } from "../appwrite.config";
 import { Appointment } from "@/types/appwrite.types";
 import { revalidatePath } from "next/cache";
@@ -41,7 +41,7 @@ export const getRecentAppointmentList = async () => {
       process.env.NEXT_PUBLIC_APPOINTMENT_COLLECTION_ID!,
       [Query.orderDesc("$createdAt")]
     );
-    console.log("Raw appointments data:", appointments);
+
     const initialCounts = {
       scheduledCount: 0,
       pendingCount: 0,
@@ -67,7 +67,7 @@ export const getRecentAppointmentList = async () => {
       ...counts,
       documents: appointments.documents,
     };
-    console.log("appointments available:", data);
+
     return parseStringify(data);
   } catch (error) {
     console.log(error);
@@ -90,6 +90,18 @@ export const updateAppointment = async ({
     if (!updatedAppointment) {
       throw new Error("Appointment not found");
     }
+
+    const smsMessage = `Hi its CarePulse.
+    ${
+      type === "schedule"
+        ? `Your appointment has ben scheduled for ${
+            formatDateTime(appointment.schedule!).dateTime
+          } with Dr. ${appointment.primaryPhysician}`
+        : `Wwe regret to inform you that your appointment has been cancelled for the
+      following reason: ${appointment.cancellationReason}`
+    }
+    `;
+    await sendSMSNotification(userId, smsMessage);
 
     revalidatePath("/admin");
     return parseStringify(updatedAppointment);
